@@ -1,0 +1,26 @@
+name: NHL Players Daily Bot
+
+on:
+  schedule:
+    # 12:00 UTC = 19:00 по Новосибирску (UTC+7) каждый день
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Позволяет запускать вручную кнопкой "Run workflow" на GitHub
+
+jobs:
+  run-nhl-players-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run NHL Players Bot
+        run: python nhl_players_bot.py
